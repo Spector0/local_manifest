@@ -1,0 +1,27 @@
+task:
+  name: Build
+  persistent_worker: {}
+  env:
+    USE_CCACHE: 1
+    CIRRUS_WORKING_DIR: /tmp/$CIRRUS_REPO_NAME
+  clone_script:
+    - repo init -u https://github.com/LineageOS/android.git -b lineage-19.1 || true
+  sync_script:
+    - rm -rf .repo/local_manifests || true
+    - git clone https://github.com/Spector0/local_manifest.git --depth 1 -b main .repo/local_manifests
+    - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
+  build_script:
+    - source build/envsetup.sh
+    - breakfast lineage_oscar-userdebug
+    - croot
+    - brunch loscar -j$(nproc --all)
+  ccache_stats_script:
+    - ccache -s
+  upload_script: |
+    up() {
+      curl --upload-file $1 https://transfer.sh/$(basename $1); echo
+      # 14 days, 10 GB limit
+    }
+
+    up out/target/product/oscar/*.zip
+    up out/target/product/oscar/boot.img
