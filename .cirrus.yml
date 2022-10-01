@@ -16,9 +16,8 @@ task:
     - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
   build_script:
     - source build/envsetup.sh
-    - breakfast lineage_oscar-userdebug
-    - croot
-    - brunch loscar -j$(nproc --all)
+    - lunch lineage_oscar-userdebug
+    - mka oscar -j$(nproc --all)
   ccache_stats_script:
     - ccache -s
   upload_script: |
