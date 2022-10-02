@@ -18,7 +18,7 @@ task:
   build_script:
     - source build/envsetup.sh
     - lunch lineage_oscar-userdebug
-    - mka oscar -j$(nproc --all)
+    - m bacon -j$(nproc --all)
   ccache_stats_script:
     - ccache -s
   upload_script: |
