@@ -9,15 +9,15 @@ task:
     USE_CCACHE: 1
     CIRRUS_WORKING_DIR: /tmp/$CIRRUS_REPO_NAME
   clone_script:
-    - repo init -u https://github.com/LineageOS/android.git -b lineage-19.1 || true
+    - repo init -u https://github.com/PixelExperience/manifest -b thirteen || true
   sync_script:
     - rm -rf .repo/local_manifests || true
-    - git clone https://github.com/Spector0/local_manifest.git --depth 1 -b main .repo/local_manifests
+    - git clone https://github.com/rombuilder/local_manifest.git --depth 1 -b main .repo/local_manifests
     - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
     - rm -rf hardware/qcom-caf/sm8350
   build_script:
     - source build/envsetup.sh
-    - lunch lineage_oscar-userdebug
+    - lunch aosp_holi-userdebug
     - m bacon -j$(nproc --all)
   ccache_stats_script:
     - ccache -s
@@ -27,5 +27,5 @@ task:
       # 14 days, 10 GB limit
     }
 
-    up out/target/product/oscar/*.zip
-    up out/target/product/oscar/boot.img
+    up out/target/product/holi/*.zip
+    up out/target/product/holi/boot.img
