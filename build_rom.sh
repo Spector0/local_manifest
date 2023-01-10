@@ -10,9 +10,9 @@ repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync 
 
 # build rom
 source build/envsetup.sh
-breakfast lineage_oscar-user
+breakfast aosp_holi-user
 croot
-brunch lineage_oscar -j$(nproc --all)
+brunch aosp_holi -j$(nproc --all)
 
 # upload rom
 up(){
@@ -20,5 +20,5 @@ up(){
 	# 14 days, 10 GB limit
 }
 
-up out/target/product/oscar/*.zip 
-up out/target/product/oscar/boot.img
+up out/target/product/holi/*.zip 
+up out/target/product/holi/boot.img
