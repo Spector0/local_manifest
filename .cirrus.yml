@@ -9,7 +9,7 @@ task:
     USE_CCACHE: 1
     CIRRUS_WORKING_DIR: /tmp/$CIRRUS_REPO_NAME
   clone_script:
-    - repo init -u repo init -u https://github.com/PixelExperience/manifest -b thirteen || true
+    - repo init -u https://github.com/PixelExperience/manifest -b thirteen || true
   sync_script:
     - rm -rf .repo/local_manifests || true
     - git clone https://github.com/rombuilder/local_manifest.git --depth 1 -b main .repo/local_manifests
